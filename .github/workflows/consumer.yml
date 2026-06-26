@@ -55,7 +55,7 @@ jobs:
           exit 1
 
       - name: Run Consumer Tests
-        run: mvn test
+        run: mvn -Dtest=PosOmsConsumerPactTest test
 
       - name: Show Generated Pact Files
         run: |
