@@ -25,6 +25,7 @@ public class PosOmsConsumerPactTest {
     public V4Pact createPact(PactDslWithProvider builder) {
 
         return builder
+                .given("order 1 exists")
                 .uponReceiving("Get Order")
                 .path("/orders/1")
                 .method("GET")
@@ -54,6 +55,7 @@ public class PosOmsConsumerPactTest {
     public V4Pact createOrderPact(PactDslWithProvider builder) {
 
         return builder
+                .given("order can be created")
                 .uponReceiving("Create Order")
                 .path("/orders")
                 .method("POST")
@@ -83,6 +85,7 @@ public class PosOmsConsumerPactTest {
     public V4Pact getInventoryPact(PactDslWithProvider builder) {
 
         return builder
+                .given("inventory exists")
                 .uponReceiving("Get Inventory")
                 .path("/inventory/SKU-9")
                 .method("GET")
