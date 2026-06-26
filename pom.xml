@@ -173,6 +173,7 @@
                         <pact.verifier.publishResults>${pact.verifier.publishResults}</pact.verifier.publishResults>
                         <pact.provider.version>${git.sha}</pact.provider.version>
                         <pact.provider.branch>${pact.provider.branch}</pact.provider.branch>
+                        <pact.provider.branch>${git.branch}</pact.provider.branch>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

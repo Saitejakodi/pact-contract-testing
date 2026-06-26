@@ -41,4 +41,9 @@ jobs:
           exit 1
 
       - name: Run Provider Verification
-        run: mvn -Dtest=OmsProviderVerificationTest test
+        run: |
+          mvn \
+            -Dtest=OmsProviderVerificationTest \
+            -Dgit.sha=${GITHUB_SHA::7} \
+            -Dgit.branch=${GITHUB_REF_NAME} \
+            test
