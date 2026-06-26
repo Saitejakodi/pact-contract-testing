@@ -53,3 +53,10 @@ jobs:
           done
           echo "Pact Broker failed to start"
           exit 1
+
+      - name: Run Consumer Tests
+        run: mvn test
+
+      - name: Show Generated Pact Files
+        run: |
+          ls -R target
