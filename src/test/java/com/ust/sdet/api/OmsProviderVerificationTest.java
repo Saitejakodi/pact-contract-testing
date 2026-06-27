@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @Provider("OMS")
-@PactBroker(url = "http://localhost:9292")
+@PactBroker(url = "http://3.106.207.245:9292")
 class OmsProviderVerificationTest {
 
     @BeforeAll
