@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Project
         uses: actions/checkout@v4
 
@@ -26,21 +25,16 @@ jobs:
           restore-keys: |
             maven-${{ runner.os }}
 
-      - name: Start Pact Broker
-        run: |
-          docker compose -f docker-compose.pact-broker.yml up -d
+      - name: Verify Java
+        run: java -version
 
-      - name: Wait for Broker
-        run: |
-          for i in {1..30}; do
-            if curl -f http://localhost:9292/diagnostic/status/heartbeat; then
-              exit 0
-            fi
-            sleep 5
-          done
-          exit 1
+      - name: Verify Maven
+        run: mvn -version
 
       - name: Run Provider Verification
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
         run: |
           mvn \
             -Dtest=OmsProviderVerificationTest \
