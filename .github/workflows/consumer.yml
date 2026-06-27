@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Project
         uses: actions/checkout@v4
 
@@ -34,26 +33,6 @@ jobs:
       - name: Verify Maven
         run: mvn -version
 
-      - name: Start Pact Broker
-        run: |
-          docker compose -f docker-compose.pact-broker.yml up -d
-
-      - name: Show Running Containers
-        run: docker ps
-
-      - name: Wait for Pact Broker
-        run: |
-          for i in {1..30}; do
-            if curl -f http://localhost:9292/diagnostic/status/heartbeat; then
-              echo "Pact Broker is ready"
-              exit 0
-            fi
-            echo "Waiting for Pact Broker..."
-            sleep 5
-          done
-          echo "Pact Broker failed to start"
-          exit 1
-
       - name: Run Consumer Tests
         run: mvn -Dtest=PosOmsConsumerPactTest test
 
@@ -61,7 +40,10 @@ jobs:
         run: |
           ls -R target
 
-      - name: Publish Pact to Broker
+      - name: Publish Pact to PactFlow
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
         run: |
           mvn au.com.dius.pact.provider:maven:publish \
             -Dgit.sha=${GITHUB_SHA::7} \
