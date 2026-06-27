@@ -35,7 +35,6 @@ public class PosOmsConsumerPactTest {
                         .integerType("id", 1)
                         .stringType("status", "CONFIRMED"))
                 .toPact(V4Pact.class);
-
     }
 
     @Test
