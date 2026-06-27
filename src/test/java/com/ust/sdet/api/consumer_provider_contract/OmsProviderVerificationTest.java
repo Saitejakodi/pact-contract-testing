@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @Provider("OMS")
-@PactBroker(url = "https://ust-41e288e5.pactflow.io")
+@PactBroker(url = "${PACT_BROKER_BASE_URL}")
 class OmsProviderVerificationTest {
 
     @BeforeAll
