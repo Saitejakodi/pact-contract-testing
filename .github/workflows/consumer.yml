@@ -3,7 +3,7 @@ name: Consumer Contract Test
 on:
   push:
     branches:
-      - main
+      - saiteja_week04-gate4
 
 jobs:
   consumer:
@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          key: maven-${{ runner.os }}-${{ hashFiles('Consumer_Provider/pom.xml') }}
           restore-keys: |
             maven-${{ runner.os }}
 
@@ -31,22 +31,21 @@ jobs:
         run: java -version
 
       - name: Verify Maven
+        working-directory: Consumer_Provider
         run: mvn -version
 
       - name: Run Consumer Tests
+        working-directory: Consumer_Provider
         run: mvn -Dtest=PosOmsConsumerPactTest test
 
       - name: Show Generated Pact Files
+        working-directory: Consumer_Provider
         run: |
           ls -R target
 
-      - name: Publish Pact to PactFlow
-        env:
-          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
-          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+      - name: Publish Pact to Broker
+        working-directory: Consumer_Provider
         run: |
           mvn au.com.dius.pact.provider:maven:publish \
-            -Dpact.broker.url="${PACT_BROKER_BASE_URL}" \
-            -Dpactbroker.auth.token="${PACT_BROKER_TOKEN}" \
             -Dgit.sha=${GITHUB_SHA::7} \
             -Dgit.branch=${GITHUB_REF_NAME}
