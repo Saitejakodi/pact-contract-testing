@@ -1,4 +1,4 @@
-package com.ust.sdet.api;
+package com.ust.sdet.api.consumer_provider_contract;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;

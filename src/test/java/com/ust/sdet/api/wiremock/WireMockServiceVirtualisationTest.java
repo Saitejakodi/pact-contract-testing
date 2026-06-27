@@ -1,4 +1,4 @@
-package com.ust.sdet.api;
+package com.ust.sdet.api.wiremock;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.junit.jupiter.api.BeforeEach;

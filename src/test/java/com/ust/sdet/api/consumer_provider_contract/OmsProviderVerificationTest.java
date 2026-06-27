@@ -1,4 +1,4 @@
-package com.ust.sdet.api;
+package com.ust.sdet.api.consumer_provider_contract;
 
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;

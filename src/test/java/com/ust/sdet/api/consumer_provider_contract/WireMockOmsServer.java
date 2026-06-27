@@ -1,4 +1,4 @@
-package com.ust.sdet.api;
+package com.ust.sdet.api.consumer_provider_contract;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
