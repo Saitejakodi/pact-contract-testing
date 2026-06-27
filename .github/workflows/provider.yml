@@ -32,12 +32,11 @@ jobs:
         run: mvn -version
 
       - name: Run Provider Verification
-        env:
-          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
-          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
         run: |
           mvn \
             -Dtest=OmsProviderVerificationTest \
+            -Dpactbroker.url=https://ust-41e288e5.pactflow.io \
+            -Dpactbroker.auth.token=4hh48xDG8KouNB-GpsGAbQ \
             -Dgit.sha=${GITHUB_SHA::7} \
             -Dgit.branch=${GITHUB_REF_NAME} \
             test
