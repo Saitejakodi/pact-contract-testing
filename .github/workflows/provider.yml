@@ -29,11 +29,11 @@ jobs:
         run: java -version
 
       - name: Verify Maven
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: mvn -version
 
       - name: Run Provider Verification
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: |
           mvn \
             -Dtest=OmsProviderVerificationTest \

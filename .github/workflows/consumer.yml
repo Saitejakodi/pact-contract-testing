@@ -3,7 +3,7 @@ name: Consumer Contract Test
 on:
   push:
     branches:
-      - saiteja_week04-gate4
+      - main
 
 jobs:
   consumer:
@@ -31,20 +31,20 @@ jobs:
         run: java -version
 
       - name: Verify Maven
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: mvn -version
 
       - name: Run Consumer Tests
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: mvn -Dtest=PosOmsConsumerPactTest test
 
       - name: Show Generated Pact Files
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: |
           ls -R target
 
       - name: Publish Pact to Broker
-        working-directory: Consumer_Provider
+#        working-directory: Consumer_Provider
         run: |
           mvn au.com.dius.pact.provider:maven:publish \
             -Dgit.sha=${GITHUB_SHA::7} \
