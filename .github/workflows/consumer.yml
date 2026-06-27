@@ -40,13 +40,27 @@ jobs:
         run: |
           ls -R target
 
+      - name: Verify PactFlow Secrets
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+        run: |
+          echo "Broker URL: $PACT_BROKER_BASE_URL"
+      
+          if [ -z "$PACT_BROKER_TOKEN" ]; then
+            echo "Token is EMPTY"
+            exit 1
+          else
+            echo "Token is PRESENT"
+          fi
+
       - name: Publish Pact to PactFlow
         env:
           PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
           PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
         run: |
           mvn au.com.dius.pact.provider:maven:publish \
-            -Dpact.broker.url=${PACT_BROKER_BASE_URL} \
-            -Dpactbroker.auth.token=${PACT_BROKER_TOKEN} \
+            -Dpact.broker.url="${PACT_BROKER_BASE_URL}" \
+            -Dpactbroker.auth.token="${PACT_BROKER_TOKEN}" \
             -Dgit.sha=${GITHUB_SHA::7} \
             -Dgit.branch=${GITHUB_REF_NAME}
